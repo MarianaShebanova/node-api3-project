@@ -28,7 +28,8 @@ function logger(req, res, next) {
     console.log(`[${new Date().toISOString()}] ${method} to ${originalUrl}`);
     next();
 }
+const port = process.env.PORT || 8000;
 
-server.listen(8000, () => {
+server.listen(port, () => {
     console.log('\n*** Server Running on http://localhost:8000 ***\n');
 });
