@@ -9,6 +9,8 @@ const server = express();
 
 server.use(express.json());
 
+server.use(logger);
+
 server.get('/', (req, res) => {
     res.send(`
     <h2>Lambda Hubs API</h>
@@ -20,6 +22,12 @@ server.get('/', (req, res) => {
 server.use('/api/users', userRouter);
 
 server.use('/api/posts', postRouter);
+
+function logger(req, res, next) {
+    const { method, originalUrl } = req;
+    console.log(`[${new Date().toISOString()}] ${method} to ${originalUrl}`);
+    next();
+}
 
 server.listen(8000, () => {
     console.log('\n*** Server Running on http://localhost:8000 ***\n');
